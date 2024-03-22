@@ -13,7 +13,7 @@ import (
 )
 
 func crawlImageUrl() (chan types.Job, error) {
-	res, err := http.Get("https://gacxepbookstore.vn")
+	res, err := http.Get("https://gacxepbookstore.vn/all-books?page=5")
 	if err != nil {
 		return nil, err
 	}
@@ -30,7 +30,7 @@ func crawlImageUrl() (chan types.Job, error) {
 		return nil, err
 	}
 
-	bookItems := doc.Find(".product-loop-1.product-loop-sea.product-base")
+	bookItems := doc.Find(".product-loop-1.product-base")
 	numBookItem := bookItems.Length()
 	jobs := make(chan types.Job, numBookItem)
 	bookItems.Each(func(i int, s *goquery.Selection) {
